@@ -4,16 +4,20 @@ variable "env" {
 }
 
 variable "cidr" {
+  type = list(string)
+}
+
+variable "vpc_cidr" {
   type = string
 }
 
-# variable "instance" {
-#   type = string
-# }
+variable "instance" {
+  type = string
+}
 
-# variable "webserver_port" {
-#   type = number
-# }
+variable "webserver_port" {
+  type = number
+}
 
 variable "private_subnet_cidr" {
   type = list(string)

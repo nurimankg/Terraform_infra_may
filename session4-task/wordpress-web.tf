@@ -38,11 +38,11 @@ data "aws_ami" "Amazon_linux" {
 ## Template file for wordpress 
 
 data "template_file" "user_data" {
-    template = file("user-data.sh")
+    template = file("user_data.sh")
     vars = {
         env = var.env
     }
-
+}
 ## Security groups
 
 resource "aws_security_group" "webserver_sg" {
@@ -60,7 +60,7 @@ resource "aws_security_group" "webserver_sg" {
     from_port        = 0
     to_port          = 0
     protocol         = "-1"
-    cidr_blocks      = var.internet_access
+    cidr_blocks      = var.cidr
   }
 
   tags = {
@@ -74,4 +74,3 @@ resource "aws_key_pair" "tf_key" {
   key_name   = "terraform-server-key"
   public_key = file("~/.ssh/id_rsa.pub")
  }
-}

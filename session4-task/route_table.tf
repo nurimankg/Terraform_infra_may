@@ -9,11 +9,13 @@ resource "aws_route_table" "privat_rt" {
   tags = {
     Name = "${var.env}-private_routetable"
   }
+}
 
 
 ## Route tables association
 
 resource "aws_route_table_association" "private_a" {
+  count = 3
   subnet_id      = element(aws_subnet.private_subnets.*.id, count.index)
   route_table_id = aws_route_table.privat_rt.id
 }
@@ -22,10 +24,12 @@ resource "aws_route_table_association" "private_a" {
 
 resource "aws_route_table" "pulic_rt" {
    vpc_id = aws_vpc.main_vpc.id
-   gateway_id = aws_internet_gateway.gw.id
+   
 
   route {
     cidr_block = var.internet_access
+    gateway_id = aws_internet_gateway.gw.id
+  }
 
   tags = {
     Name = "${var.env}-public_routetable"
@@ -52,7 +56,7 @@ resource "aws_internet_gateway" "gw" {
 
 resource "aws_nat_gateway" "nat_gw" {
   allocation_id = aws_eip.nat-eip.id
-  subnet_id  = aws_subnet.privat_rt.id
+  subnet_id  = aws_subnet.public_subnets.0.id
 
   tags = {
     Name = "${var.env}-nat_gateway"
@@ -66,6 +70,4 @@ resource "aws_eip" "nat-eip" {
   tags = {
     Name = "${var.env}-nat_gw_eip"
   }
-}
-}
 }
