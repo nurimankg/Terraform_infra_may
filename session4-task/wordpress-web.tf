@@ -1,4 +1,4 @@
-## webserver instance
+################## webserver instance
 
 resource "aws_instance" "webserver" {
     ami = data.aws_ami.Amazon_linux.id
@@ -18,7 +18,7 @@ resource "aws_instance" "webserver" {
   }
 }
 
-## AMI
+################## AMI
 
 data "aws_ami" "Amazon_linux" {
   most_recent = true
@@ -35,7 +35,7 @@ data "aws_ami" "Amazon_linux" {
   }
 }
 
-## Template file for wordpress 
+################## Template file for wordpress 
 
 data "template_file" "user_data" {
     template = file("user_data.sh")
@@ -43,7 +43,7 @@ data "template_file" "user_data" {
         env = var.env
     }
 }
-## Security groups
+##################### Security groups
 
 resource "aws_security_group" "webserver_sg" {
   name        = "${var.env}-webserver-sg"
@@ -68,7 +68,7 @@ resource "aws_security_group" "webserver_sg" {
   }
 }
 
-## Key pairs
+#################### Key pairs
 
 resource "aws_key_pair" "tf_key" {
   key_name   = "terraform-server-key"
