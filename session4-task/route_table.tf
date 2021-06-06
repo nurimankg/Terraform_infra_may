@@ -5,6 +5,7 @@ resource "aws_route_table" "privat_rt" {
 
   route {
     cidr_block = var.internet_access
+    nat_gateway_id = aws_nat_gateway.nat_gw.id
   }
   tags = {
     Name = "${var.env}-private_routetable"
