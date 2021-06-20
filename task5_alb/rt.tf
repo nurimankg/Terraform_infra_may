@@ -2,8 +2,8 @@
 
 resource "aws_route_table" "public_rt" {
   vpc_id = aws_vpc.main_vpc.id
-  
-    route {
+
+  route {
     cidr_block = var.internet_access
     gateway_id = aws_internet_gateway.igw.id
   }
@@ -14,7 +14,7 @@ resource "aws_route_table" "public_rt" {
 }
 
 resource "aws_route_table_association" "public_rt_as" {
-  count = 3
+  count          = 3
   subnet_id      = element(aws_subnet.public_subnet.*.id, count.index)
   route_table_id = aws_route_table.public_rt.id
 }
@@ -24,8 +24,8 @@ resource "aws_route_table_association" "public_rt_as" {
 
 resource "aws_route_table" "private_rt" {
   vpc_id = aws_vpc.main_vpc.id
-  
-    route {
+
+  route {
     cidr_block = var.internet_access
     gateway_id = aws_internet_gateway.igw.id
   }
@@ -36,8 +36,8 @@ resource "aws_route_table" "private_rt" {
 }
 
 resource "aws_route_table_association" "private_rt_as" {
-  count = 3
-  subnet_id      = element(aws_subnet.private_subnet.*.id, count.index)    ## 
+  count          = 3
+  subnet_id      = element(aws_subnet.private_subnet.*.id, count.index) ## 
   route_table_id = aws_route_table.private_rt.id
 }
 
@@ -56,7 +56,7 @@ resource "aws_internet_gateway" "igw" {
 
 resource "aws_nat_gateway" "nat_gw" {
   allocation_id = aws_eip.eip.id
-  subnet_id     = aws_subnet.private_subnet.0.id   ### need to attach to one particular subnet
+  subnet_id     = aws_subnet.private_subnet.0.id ### need to attach to one particular subnet
 
   tags = {
     Name = "${var.env}-nat_gw"
@@ -66,7 +66,7 @@ resource "aws_nat_gateway" "nat_gw" {
 ############# Eip
 
 resource "aws_eip" "eip" {
-  vpc      = true
+  vpc = true
 
   tags = {
     "Name" = "${var.env}-nat_eip"

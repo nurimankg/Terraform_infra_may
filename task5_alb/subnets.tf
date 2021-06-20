@@ -1,9 +1,9 @@
 ############ Private subnet
 
 resource "aws_subnet" "private_subnet" {
-  count = 3
-  vpc_id     = aws_vpc.main_vpc.id
-  cidr_block = element(var.private_subnet_cidr, count.index)
+  count             = 3
+  vpc_id            = aws_vpc.main_vpc.id
+  cidr_block        = element(var.private_subnet_cidr, count.index)
   availability_zone = element(var.subnet_az, count.index)
 
 
@@ -15,9 +15,9 @@ resource "aws_subnet" "private_subnet" {
 ################ Public subnet
 
 resource "aws_subnet" "public_subnet" {
-  count = 3
-  vpc_id     = aws_vpc.main_vpc.id
-  cidr_block = element(var.public_subnet_cidr, count.index)
+  count             = 3
+  vpc_id            = aws_vpc.main_vpc.id
+  cidr_block        = element(var.public_subnet_cidr, count.index)
   availability_zone = element(var.subnet_az, count.index)
 
 

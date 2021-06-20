@@ -2,6 +2,14 @@ variable "env" {
   type = string
 }
 
+variable "snapshot" {
+  type = string
+}
+
+variable "vpc_cidr" {
+  type = string
+}
+
 variable "vpc_id" {
   type = list(string)
 }
@@ -19,6 +27,13 @@ variable "subnet_az" {
 
 }
 
+variable "custom_ip" {
+  type = list(string)
+}
+
+variable "all_internet" {
+  type = list(string)
+}
 variable "internet_access" {
   type = string
 }
@@ -32,5 +47,9 @@ variable "webserver_port_http" {
 }
 
 variable "webserver_port_ssh" {
+  type = number
+}
+
+variable "db_port" {
   type = number
 }
