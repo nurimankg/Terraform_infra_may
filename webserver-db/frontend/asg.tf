@@ -17,6 +17,33 @@ resource "aws_launch_configuration" "webserver_lc" {
   }
 }
 
+###########  Provisioner installing app
+
+# provisioner "file" {
+#     connection {
+#       type        = "ssh"
+#       user        = "ec2-user"
+#       host        = self.public_ip
+#       private_key = file("/home/ec2-user/.ssh/id_rsa")
+#     }
+#     source = "index.html"
+#     destination = "/tmp/index.html"
+#   }
+
+#   provisioner "remote-exec" {
+#     connection {
+#       type        = "ssh"
+#       user        = "ec2-user"
+#       host        = self.public_ip
+#       private_key = file("/home/ec2-user/.ssh/id_rsa")
+#     }
+#     inline = [
+#       "sudo yum install httpd -y",
+#       "sudo mv /tmp/index.html /var/www/html/index.html",
+#       "sudo systemctl start httpd"
+#     ]
+#   }
+
 ########## SG for instance
 
 resource "aws_security_group" "instance_sg" {
