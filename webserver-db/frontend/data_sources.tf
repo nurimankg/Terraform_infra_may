@@ -3,7 +3,7 @@
 data "aws_ami" "Centos" {
   most_recent = true
   owners      = ["aws-marketplace"]
-
+ 
   filter {
     name   = "name"
     values = ["CentOS Linux 7 x86_64 HVM EBS**"]
